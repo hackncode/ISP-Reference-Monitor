@@ -1,0 +1,33 @@
+
+# Scenario 4: Handling Multiple Files
+
+
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+if "example.txt.a" in listfiles():
+  removefile("example.txt.a")
+if "example.txt.b" in listfiles():
+  removefile("example.txt.b")
+
+myfile1 = ABopenfile("testfile.txt", True)
+myfile2 = ABopenfile("example.txt", True)
+myfile1.writeat("Stest1E", 0)
+myfile2.writeat("Stest2E", 0)
+myfile1.close()
+myfile2.close()
+myfile1 = ABopenfile("testfile.txt", True)
+myfile2 = ABopenfile("example.txt", True)
+
+try:
+ assert('Stest1E' == myfile1.readat(7,0))
+ assert('Stest2E' == myfile2.readat(7,0))
+ myfile1.close()
+ myfile2.close()
+except:
+ myfile1.close()
+ myfile2.close()
+finally:
+ exitall()
+

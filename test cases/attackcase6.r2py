@@ -1,0 +1,34 @@
+
+# Scenario 6: Threading with Timeout
+
+def close_after(t):
+  def sleep_for():
+    sleep(t)
+    log("Operation Unsuccessful as Program Triggered Race Condition / Infinite Loop\n")
+    exitall()
+  return sleep_for
+
+terminate_program = close_after(4)
+createthread(terminate_program)
+
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+myfile = ABopenfile("testfile.txt", True)
+
+def threadone():
+  myfile.writeat("StestE",0)
+
+def threadtwo():
+  myfile.writeat("StestEsecurityE",0)
+
+createthread(threadone)
+createthread(threadtwo)
+myfile.close()
+
+myfile = ABopenfile("testfile.txt", True)
+assert(myfile.readat(None,0) == "StestEsecurityE")
+myfile.close()
+

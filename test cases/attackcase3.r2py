@@ -1,0 +1,16 @@
+
+# Scenario 3: File Read Operation Testing
+
+
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+myfile = ABopenfile("testfile.txt", True)
+myfile.readat(None,0)
+myfile.readat(100,0)
+myfile.readat(None,100)
+myfile.readat(None,-100)
+myfile.close()
+
